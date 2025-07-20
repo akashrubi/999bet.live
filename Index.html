@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Player Login & Game</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 300px;
+      margin: 10px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+    #dashboard {
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login/Register Box -->
+  <div class="box" id="authBox">
+    <h2>Player Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p style="text-align:center; margin:10px 0;">or</p>
+    <button onclick="register()">Create Account</button>
+  </div>
+
+  <!-- Dashboard/Game Area -->
+  <div class="box" id="dashboard">
+    <h2>Welcome <span id="playerName"></span> 🎮</h2>
+    <p>You're inside the game area.</p>
+    <button onclick="playGame()">Play Game</button>
+    <p id="gameResult"></p>
+  </div>
+
+  <script>
+    // Fake account storage
+    let user = null;
+
+    function register() {
+      const u = document.getElementById('username').value;
+      const p = document.getElementById('password').value;
+      if (u && p) {
+        user = { username: u, password: p };
+        alert("Account created. Now login.");
+      } else {
+        alert("Please fill in all fields.");
+      }
+    }
+
+    function login() {
+      const u = document.getElementById('username').value;
+      const p = document.getElementById('password').value;
+      if (user && user.username === u && user.password === p) {
+        document.getElementById('authBox').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('playerName').innerText = u;
+      } else {
+        alert("Invalid login or no account found.");
+      }
+    }
+
+    function playGame() {
+      const win = Math.random() > 0.5;
+      document.getElementById('gameResult').innerText = win ? "🎉 You Win!" : "😞 You Lose!";
+    }
+  </script>
+
+</body>
+</html>
